@@ -1,6 +1,6 @@
 <?php
 
-namespace PxlCtzn\BlogBundle\Tests\Controller;
+namespace PxlCtzn\HomeBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

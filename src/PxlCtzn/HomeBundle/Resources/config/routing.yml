@@ -1,0 +1,3 @@
+pxl_ctzn_home_homepage:
+    pattern:  /
+    defaults: { _controller: PxlCtznHomeBundle:Home:index }
