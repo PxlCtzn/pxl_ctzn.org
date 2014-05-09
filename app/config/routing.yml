@@ -1,0 +1,4 @@
+pxl_ctzn_blog:
+    resource: "@PxlCtznBlogBundle/Resources/config/routing.yml"
+    prefix:   /blog
+

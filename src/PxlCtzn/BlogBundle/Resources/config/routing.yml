@@ -1,0 +1,9 @@
+blog_homepage:
+    pattern:  /{page}
+    defaults: { _controller: PxlCtznBlogBundle:Default:index, page: 1 }
+    requirements:
+        page: \d*
+
+blog_homepage:
+    pattern: /article/{id}
+    defaults: { _controller: PxlCtznBlogBundle:Default:display, page: 1 }
