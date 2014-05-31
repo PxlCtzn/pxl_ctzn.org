@@ -25,7 +25,7 @@ class Tag
      * @var string
      *
      * @ORM\Column(name="label", type="string")
-     * @Assert\NotEmpty
+     * @Assert\NotBlank
      */
     private $label;
 

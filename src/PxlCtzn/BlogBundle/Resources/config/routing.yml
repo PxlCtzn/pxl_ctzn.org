@@ -4,6 +4,6 @@ blog_homepage:
     requirements:
         page: \d*
 
-blog_homepage:
+blog_view_page:
     pattern: /article/{id}
     defaults: { _controller: PxlCtznBlogBundle:Default:display, page: 1 }
