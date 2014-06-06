@@ -1,4 +1,31 @@
-{% extends 'knp_menu.html.twig' %}
+{% extends 'knp_menu_base.html.twig' %}
 
-{% block item %}
-{% import 'knp_menu.html.twig' as macros %}
+
+{% block compressed_root %}
+    {% spaceless %}
+        {{ block('root') }}
+    {% endspaceless %}
+{% endblock %} {# end block compressed_root#}
+
+{% block root %}
+
+    {% set menuNumber = item.children|length %}
+    {% set listAttributes = item.childrenAttributes %}
+    {{ dump(menuNumber) }}
+{% endblock %} {# end block root#}
+
+{%  block row %}
+    <div class="row">
+
+    </div>
+{% endblock %} {# end block row#}
+
+{% block hexagon %}
+    <div class="hex">
+        <div class="inner">
+
+        </div>
+        <div class="corner-1"></div>
+        <div class="corner-2"></div>
+    </div>
+{% endblock %} {# end block hexagon#}
