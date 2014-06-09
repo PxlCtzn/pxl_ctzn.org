@@ -4,11 +4,10 @@
 
 {% block stylesheets %}
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ asset('bundles/pxlctznhome/css/hexa.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
-    <h1 id="home">Pxl Ctzn</h1>
-	
 	{{ knp_menu_render(
 		'PxlCtznHomeBundle:MenuBuilder:homeMenu', 
 		{'template': 'PxlCtznHomeBundle:Menu:knp_menu.html.twig'}
