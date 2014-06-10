@@ -41,29 +41,38 @@
         {% set classes = ['hex']|merge(item.attribute('class') is not empty ? [item.attribute('class')] : []) %}
         {% set ids = item.attribute('id') is not empty ? [item.attribute('id')] : []%}
 
-        <div class="{{ classes|join(' ') }}" id="{{ ids|join(' ') }}">
+        {% set classes_str = classes is not empty?'class="%s"'|format(classes|join(' ')):"" %}
+        {% set ids_str = ids is not empty?'id="%s"'|format(ids|join(' ')):"" %}
+        {% set bgImg_str = item.attribute('bg-img') is not empty ? "style='background-image: url(%s);'"|format(item.attribute('bg-img')|e) : ''%}
+        {% set bgColor_str = item.attribute('bg-color') is not empty ? "style='background-color: %s;'"|format(item.attribute('bg-color')|e) : ''%}
+
+        <div {{ classes_str|raw }} {{ ids_str|raw }} {{ bgImg_str|raw }} {{ bgColor_str|raw }}>
             <div class="inner">
-                {% if item.attribute('icon') is not empty %}
+                {% if item.attribute('icon') is not empty  and not item.attribute('no-icon')%}
                     {{ block('icon') }}
                 {% endif %}
-                {% if item.name is not empty %}
-                    {{ block('title') }}
-                {% endif %}
-                {% if item.attribute('desc') is not empty %}
+                {% if not item.attribute('no-text') %}
                     {% if item.name is not empty %}
-                        {{ block('horizontal_separator') }}
+                        {{ block('title') }}
+                    {% endif %} {# item.name not empty ?#}
+                    {% if item.attribute('desc') is not empty %}
+                        {% if item.name is not empty %}
+                            {{ block('horizontal_separator') }}
+                        {% endif %} {# #}
+                        {{ block('desc') }}
                     {% endif %}
-                    {{ block('desc') }}
-                {% endif %}
+                {% endif %} {# no-text is not empty#}
             </div>
-            {% if item.uri is not empty %}
-                <a href="{{ item.uri }}"></a>
-            {% endif %}
             <div class="corner-1"></div>
             <div class="corner-2"></div>
+
+            {% if item.uri is not empty %}
+                <a href="{{ item.uri }}"></a>
+            {% endif %}{# item.uri #}
         </div>
     {% endif %} {# enf if item.displayed #}
 {% endblock %} {# end block hexagon#}
+
 
 {% block icon %}
     {% set icon_classes = ['fa']|merge(item.attribute('icon') is not empty ? [item.attribute('icon')] : []) %}

@@ -30,12 +30,22 @@ class MenuBuilder extends ContainerAware
 			 
 		$menu->addChild('Git', array('route' => 'blog_homepage'))
              ->setAttribute('class', 'menu-item')
+             ->setAttribute('bg-color', '#43CA67')
 			 ->setAttribute('icon', 'fa-github');
 			 
 		$menu->addChild('Calendar', array('route' => 'blog_homepage'))
             ->setAttribute('class', 'menu-item')
 			 ->setAttribute('icon', 'fa-calendar-o');
-			 
+
+        $menu->addChild('type2', array('route' => 'blog_homepage'))
+            ->setAttribute('desc', 'Lorem ipsum')
+            ->setAttribute('class', 'menu-item');
+
+        $menu->addChild('background only', array('route' => 'blog_homepage'))
+            ->setAttribute('class', 'menu-item')
+            ->setAttribute('no-text', true)
+            ->setAttribute('bg-img', 'http://www.joomlaworks.net/images/demos/galleries/abstract/7.jpg');
+
 		return $menu;
 	}
 }
