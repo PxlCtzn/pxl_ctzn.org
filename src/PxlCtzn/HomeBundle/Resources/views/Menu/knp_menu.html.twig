@@ -3,92 +3,101 @@
 {% import "knp_menu.html.twig" as macros %}
 
 {% block compressed_root %}
-    {% spaceless %}
-        {{ block('root') }}
-    {% endspaceless %}
+  {% spaceless %}
+    {{ block('root') }}
+  {% endspaceless %}
 {% endblock %} {# end block compressed_root#}
 
 {% block root %}
-    {% set menuNumber = item.children|length %}
-    {% set listAttributes = item.childrenAttributes %}
-    {{ block('container') }}
+  {% set menuNumber = item.children|length %}
+  {% set listAttributes = item.childrenAttributes %}
+  {{ block('container') }}
 
 {% endblock %} {# end block root#}
 
 {% block container %}
-    <div id="container">
-        {{ block('hexagons') }}
-    </div>
+  <div id="container">
+    {{ block('hexagons') }}
+  </div>
 {% endblock %} {# end block container#}
 
 {%  block hexagons %}
-    {# save current variables #}
-    {% set currentOptions = options %}
-    {% set currentItem = item %}
+  {# save current variables #}
+  {% set currentOptions = options %}
+  {% set currentItem = item %}
 
-    {% for item in currentItem.children %}
-        {{ block('hexagon') }}
-    {% endfor %}
+  {% for item in currentItem.children %}
+    {# save the current index #}
+    {% set indexElement = loop.index0 %}
+    {{ block('hexagon') }}
+  {% endfor %}
 
-    {# restore current variables #}
-    {% set item = currentItem %}
-    {% set options = currentOptions %}
-
+  {# restore current variables #}
+  {% set item = currentItem %}
+  {% set options = currentOptions %}
+  {{ block('clear_both') }}
 {% endblock %} {# end block hexagons#}
 
 {% block hexagon %}
-    {% if item.displayed %}
-        {% set classes = ['hex']|merge(item.attribute('class') is not empty ? [item.attribute('class')] : []) %}
-        {% set ids = item.attribute('id') is not empty ? [item.attribute('id')] : []%}
+  {% if item.displayed %}
+    {% set classes = ['hex']|merge(item.attribute('class') is not empty ? [item.attribute('class')] : []) %}
+    {% set ids = item.attribute('id') is not empty ? [item.attribute('id')] : []%}
+    {% set dataIndex = indexElement %}
 
-        {% set classes_str = classes is not empty?'class="%s"'|format(classes|join(' ')):"" %}
-        {% set ids_str = ids is not empty?'id="%s"'|format(ids|join(' ')):"" %}
-        {% set bgImg_str = item.attribute('bg-img') is not empty ? "style='background-image: url(%s);'"|format(item.attribute('bg-img')|e) : ''%}
-        {% set bgColor_str = item.attribute('bg-color') is not empty ? "style='background-color: %s;'"|format(item.attribute('bg-color')|e) : ''%}
+    {% set classes_str = classes is not empty?'class="%s"'|format(classes|join(' ')):"" %}
+    {% set ids_str = ids is not empty?'id="%s"'|format(ids|join(' ')):"" %}
+    {% set dataIndex_str = dataIndex is not empty?'data-index="%d"'|format(dataIndex):"" %}
 
-        <div {{ classes_str|raw }} {{ ids_str|raw }} {{ bgImg_str|raw }} {{ bgColor_str|raw }}>
-            <div class="inner">
-                {% if item.attribute('icon') is not empty  and not item.attribute('no-icon')%}
-                    {{ block('icon') }}
-                {% endif %}
-                {% if not item.attribute('no-text') %}
-                    {% if item.name is not empty %}
-                        {{ block('title') }}
-                    {% endif %} {# item.name not empty ?#}
-                    {% if item.attribute('desc') is not empty %}
-                        {% if item.name is not empty %}
-                            {{ block('horizontal_separator') }}
-                        {% endif %} {# #}
-                        {{ block('desc') }}
-                    {% endif %}
-                {% endif %} {# no-text is not empty#}
-            </div>
-            <div class="corner-1"></div>
-            <div class="corner-2"></div>
+    {% set bgImg_str = item.attribute('bg-img') is not empty ? "style='background-image: url(%s);'"|format(item.attribute('bg-img')|e) : ''%}
+    {% set bgColor_str = item.attribute('bg-color') is not empty ? "style='background-color: %s;'"|format(item.attribute('bg-color')|e) : ''%}
 
-            {% if item.uri is not empty %}
-                <a href="{{ item.uri }}"></a>
-            {% endif %}{# item.uri #}
-        </div>
-    {% endif %} {# enf if item.displayed #}
+    <div {{ ids_str|raw }} {{ classes_str|raw }} {{ dataIndex_str|raw }} {{bgImg_str|raw }} {{bgColor_str|raw }}>
+      <div class="inner">
+        {% if item.attribute('icon') is not empty  and not item.attribute('no-icon')%}
+          {{ block('icon') }}
+        {% endif %}
+        {% if not item.attribute('no-text') %}
+          {% if item.name is not empty %}
+            {{ block('title') }}
+          {% endif %} {# item.name not empty ?#}
+          {% if item.attribute('desc') is not empty %}
+            {% if item.name is not empty %}
+              {{ block('horizontal_separator') }}
+            {% endif %} {# #}
+            {{ block('desc') }}
+          {% endif %}
+        {% endif %} {# no-text is not empty#}
+      </div>
+      <div class="corner-1"></div>
+      <div class="corner-2"></div>
+
+      {% if item.uri is not empty %}
+        <a href="{{ item.uri }}"></a>
+      {% endif %}{# item.uri #}
+    </div>
+  {% endif %} {# enf if item.displayed #}
 {% endblock %} {# end block hexagon#}
 
 
 {% block icon %}
-    {% set icon_classes = ['fa']|merge(item.attribute('icon') is not empty ? [item.attribute('icon')] : []) %}
-    <span class="icon">
+  {% set icon_classes = ['fa']|merge(item.attribute('icon') is not empty ? [item.attribute('icon')] : []) %}
+  <span class="icon">
         <i class="{{ icon_classes|join(" ") }}"></i>
     </span>
 {% endblock %}{# end block icon #}
 
 {% block title %}
-    <h4>{{ item.name }}</h4>
+  <h4>{{ item.name }}</h4>
 {% endblock %}{# end block icon #}
 
 {% block horizontal_separator %}
-    <hr>
+  <hr>
 {% endblock %}{# end block icon #}
 
 {% block desc %}
-    <p>{{ item.attribute('desc') }}</p>
+  <p>{{ item.attribute('desc') }}</p>
 {% endblock %}{# end block icon #}
+
+{% block clear_both %}
+  <div class="clear_both"></div>
+{% endblock %}
