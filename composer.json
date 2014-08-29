@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "knplabs/knp-menu": "2.0.*@dev",
         "knplabs/knp-menu-bundle": "2.0.*@dev",
-        "jquery/jquery": "1.9.1"
+        "jquery/jquery": "1.9.1",
+        "daneden/animate" : "3.2.0"
     },
     "repositories": [
         {
@@ -32,6 +33,18 @@
                 "dist": {
                     "url": "http://code.jquery.com/jquery-1.9.1.min.js",
                     "type": "file"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package" : {
+                "name": "daneden/animate",
+                "version" : "3.2.0",
+                "source" : {
+                    "type": "git",
+                    "url" : "https://github.com/daneden/animate.css",
+                    "reference" : "origin/master"
                 }
             }
         }
